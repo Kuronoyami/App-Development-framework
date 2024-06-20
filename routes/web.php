@@ -26,10 +26,10 @@ Route::get('/coba/{id}', function (string $id) {
     return view('coba', ['id' => $id]);
 });
 Route::view('/biodata', 'biodata');
-Route::post('/biodata', function (Request $request) {
-    $output = "Nama: . $request->nama. <br>
-            Email: . $request->email. <br>
-            No. Hp.: $request->no_hp.";
+Route::post('/biodata', function () {
+    $output = "Nama: " . request('nama') . "<br>
+            Email: " . request('email') . "<br>
+            No. Hp.: " . request('no_hp');
     return $output;
 });
 Route::get('/buku', function () {
@@ -44,7 +44,7 @@ Route::get('/buku', function () {
 Route::resource('rak_buku', RakBukuController::class);
 
 // Register & Login
-Route::controller(LoginRegisterController::class)->group(function() {
+Route::controller(LoginRegisterController::class)->group(function () {
     Route::get('/register', 'register')->name('register');
     Route::post('/store', 'store')->name('store');
     Route::get('/login', 'login')->name('login');
@@ -53,5 +53,7 @@ Route::controller(LoginRegisterController::class)->group(function() {
     Route::post('/logout', 'logout')->name('logout');
 });
 
+
+
 // Ajax  Rak Buku
-Route::post('/rak_buku/ajax_store',[RakBukuController::class, 'ajax_store']);
+Route::post('/rak_buku/ajax_store', [RakBukuController::class, 'ajax_store']);
